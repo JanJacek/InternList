@@ -1,37 +1,14 @@
 <template>
-  <div>
-    <p>{{ title }}</p>
-    <ul>
-      <li v-for="todo in todos" :key="todo.id" @click="increment">
-        {{ todo.id }} - {{ todo.content }}
-      </li>
-    </ul>
-    <p>Count: {{ todoCount }} / {{ meta.totalCount }}</p>
-    <p>Active: {{ active ? 'yes' : 'no' }}</p>
-    <p>Clicks on todos: {{ clickCount }}</p>
+  <div class="q-ma-xl q-pa-xl bg-grey-1" v-if="u_store.isDataComplete">
+    <p class="text-h5 text-grey-7">User list</p>
+    <div v-for="user in u_store.users" :key="user.id">
+      <p>{{ user }}</p>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { Todo, Meta } from './models';
+import { uiStore } from 'src/stores/uiStore';
 
-interface Props {
-  title: string;
-  todos?: Todo[];
-  meta: Meta;
-  active: boolean;
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  todos: () => [],
-});
-
-const clickCount = ref(0);
-function increment() {
-  clickCount.value += 1;
-  return clickCount.value;
-}
-
-const todoCount = computed(() => props.todos.length);
+const u_store = uiStore();
 </script>
