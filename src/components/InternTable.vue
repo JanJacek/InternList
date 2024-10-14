@@ -73,6 +73,7 @@
                     flat
                     size="xs"
                     class="q-pa-none"
+                    @click="deleteUser(props.row.id)"
                   />
                 </div>
               </template>
@@ -159,6 +160,10 @@ const goToAddUser = () => {
 
 const goToEditUser = (id: number) => {
   router.push({ path: `/user/${id}` });
+};
+
+const deleteUser = (id: number) => {
+  delete u_store.users[id];
 };
 </script>
 
