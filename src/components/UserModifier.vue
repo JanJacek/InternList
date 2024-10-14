@@ -76,12 +76,13 @@
 import { ref, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { uiStore } from 'src/stores/uiStore';
+import { User } from 'src/types';
 
 const router = useRouter();
 const route = useRoute();
 const u_store = uiStore();
 
-const user = ref({
+const user = ref<User>({
   first_name: '',
   last_name: '',
   email: '',
