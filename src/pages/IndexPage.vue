@@ -1,5 +1,5 @@
 <template>
-  <q-page class="row items-center justify-evenly">
+  <q-page class="flex justify-center">
     <intern-table />
   </q-page>
 </template>

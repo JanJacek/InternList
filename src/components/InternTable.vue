@@ -1,7 +1,13 @@
 <template>
-  <div style="width: 100%; min-width: 300px">
-    <p class="text-h5 q-ml-xl text-grey-8">User list</p>
-    <div class="q-ml-xl q-mr-xl bg-grey-1 q-pa-md">
+  <div class="q-pa-xl" style="width: 100%; min-width: 300px; max-width: 1200px">
+    <p class="text-h5 text-grey-8">User list</p>
+
+    <q-card
+      class="q-pa-md bg-grey-1"
+      style="width: 100%; flex: 1; min-width: 300px"
+      flat
+      id="details-card"
+    >
       <q-table
         :flat="true"
         :rows="filteredRows"
@@ -62,7 +68,7 @@
                     class="q-pa-none"
                   >
                     <img
-                      src="../assets/edit-icon.svg"
+                      src="../assets/edit-box.svg"
                       alt="Edit"
                       class="q-icon"
                     />
@@ -71,7 +77,7 @@
                     icon="delete"
                     color="grey-5"
                     flat
-                    size="xs"
+                    size="sm"
                     class="q-pa-none"
                     @click="deleteUser(props.row.id)"
                   />
@@ -84,22 +90,21 @@
           </q-tr>
         </template>
       </q-table>
-    </div>
-    <div class="row q-mt-md q-ml-xl">
-      <q-pagination
-        :max="pagesNumber"
-        v-model="pagination.page"
-        direction-links
-        outline
-        color="primary"
-        active-design="unelevated"
-        active-color="primary"
-        active-text-color="white"
-        :rounded="false"
-        gutter="3px"
-        class="bg-grey-3"
-      />
-    </div>
+    </q-card>
+
+    <q-pagination
+      :max="pagesNumber"
+      v-model="pagination.page"
+      direction-links
+      outline
+      color="primary"
+      active-design="unelevated"
+      active-color="primary"
+      active-text-color="white"
+      :rounded="false"
+      gutter="3px"
+      class="bg-grey-3 q-mt-md"
+    />
   </div>
 </template>
 
