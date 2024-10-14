@@ -1,11 +1,9 @@
 import { defineStore } from 'pinia';
+import { FiltratedData, UiStore } from 'src/types';
 
 export const uiStore = defineStore('InternStore', {
-  state: () => ({
-    users: {} as Record<
-      number,
-      { email: string; first_name: string; last_name: string; avatar: string }
-    >,
+  state: (): UiStore => ({
+    users: {},
     isDataComplete: false,
     search: '',
   }),
@@ -16,13 +14,13 @@ export const uiStore = defineStore('InternStore', {
         id: Number(id),
         email: user.email,
         full_name: `${user.first_name} ${user.last_name}`,
+        first_name: user.first_name,
+        last_name: user.last_name,
         avatar: user.avatar,
       }));
     },
     // Dodaj getter do filtrowania danych tylko po full_name
-    filteredTableRowData(
-      state
-    ): { id: number; email: string; full_name: string; avatar: string }[] {
+    filteredTableRowData(state): FiltratedData[] {
       if (!state.search) {
         return this.tableRowData;
       }

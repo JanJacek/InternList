@@ -105,19 +105,13 @@
 
 <script setup lang="ts">
 import { uiStore } from 'src/stores/uiStore';
+import { UserTableColumn } from 'src/types';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 const u_store = uiStore();
 const router = useRouter();
 
-const columns: {
-  name: string;
-  label: string;
-  field: string;
-  sortable: boolean;
-  align?: 'left' | 'right' | 'center';
-  style?: string;
-}[] = [
+const columns: UserTableColumn[] = [
   {
     name: 'avatar',
     label: '',

@@ -5,6 +5,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { uiStore } from './stores/uiStore';
+import { UsersAccumulator, NativeUserData } from './types';
 
 const u_store = uiStore();
 
@@ -17,24 +18,7 @@ async function fetchUsers() {
     const data = await response.json();
 
     const users = data.data.reduce(
-      (
-        acc: Record<
-          number,
-          {
-            email: string;
-            first_name: string;
-            last_name: string;
-            avatar: string;
-          }
-        >,
-        user: {
-          id: number;
-          email: string;
-          first_name: string;
-          last_name: string;
-          avatar: string;
-        }
-      ) => {
+      (acc: UsersAccumulator, user: NativeUserData) => {
         acc[user.id] = {
           email: user.email,
           first_name: user.first_name,
