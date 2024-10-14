@@ -9,25 +9,38 @@
       style="height: 300px; width: 100%"
     >
       <q-card
-        class="column q-mr-md q-pt-xl justify-between"
-        style="width: 100%; flex: 1"
+        class="column q-mr-md q-pt-xl justify-between responsive-card"
+        style="width: 100%; flex: 1; min-width: 300px"
         flat
+        id="details-card"
       >
         <q-card-section class="row" style="gap: 20px; flex: 1">
-          <q-input
-            v-model="user.first_name"
-            label="First Name"
-            outlined
-            dense
-            class="col"
-          />
-          <q-input
-            v-model="user.last_name"
-            label="Last Name"
-            outlined
-            dense
-            class="col"
-          />
+          <div class="col">
+            <label
+              for="first_name"
+              class="text-bold text-caption text-grey-8 q-mb-xs"
+              >First Name</label
+            >
+            <q-input
+              class="text-grey-8 q-mt-xs"
+              id="first_name"
+              v-model="user.first_name"
+              outlined
+              dense
+            />
+          </div>
+          <div class="col">
+            <label for="last_name" class="text-bold text-caption text-grey-8"
+              >Last Name</label
+            >
+            <q-input
+              class="text-grey-8 q-mt-xs"
+              id="last_name"
+              v-model="user.last_name"
+              outlined
+              dense
+            />
+          </div>
         </q-card-section>
 
         <q-card-section class="q-mt-auto self-start">
@@ -43,14 +56,16 @@
       </q-card>
 
       <q-card
+        id="avatar-card"
         flat
-        class="column bg-grey-1"
+        class="column bg-grey-1 responsive-card q-mr-md"
         style="width: 100%; max-width: 350px"
       >
         <q-card-section class="q-pt-xl">
           <div class="flex justify-center">
-            <q-avatar size="100px">
-              <img
+            <q-avatar size="120px">
+              <q-img
+                class="avatar-border"
                 :src="
                   user.avatar ||
                   'https://mir-s3-cdn-cf.behance.net/user/230/a612cd468481191.5fe6938245733.png'
@@ -145,5 +160,25 @@ input[type='file'] {
   text-align: center;
   cursor: pointer;
   width: 100%;
+}
+.avatar-border {
+  border: 3px double #d2d2d2;
+  border-radius: 50%;
+}
+
+@media (max-width: 761px) {
+  #details-card {
+    order: 2;
+  }
+
+  #avatar-card {
+    order: 1;
+    width: 100%;
+    min-width: 300px;
+    max-width: 97% !important;
+  }
+  .responsive-card {
+    margin-bottom: 20px; /* Dodaj odstęp między kartami na mniejszych ekranach */
+  }
 }
 </style>

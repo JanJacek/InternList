@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="mdi-square-edit-outline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #bdbdbd;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M2,0C.89,0,0,.89,0,2v14c0,1.1.9,2,2,2h14c1.1,0,2-.9,2-2v-7h-2v7H2V2h7V0H2M14.78,1c-.17,0-.35.07-.48.2l-1.22,1.21,2.5,2.5,1.22-1.21c.26-.26.26-.7,0-.95l-1.55-1.55c-.13-.13-.3-.2-.47-.2M12.37,3.12l-7.37,7.38v2.5h2.5l7.37-7.38-2.5-2.5Z"/>
+</svg>
