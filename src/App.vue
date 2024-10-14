@@ -6,10 +6,6 @@
 import { onMounted } from 'vue';
 import { uiStore } from './stores/uiStore';
 
-// defineOptions({
-//   name: 'App',
-// });
-
 const u_store = uiStore();
 
 async function fetchUsers() {
@@ -19,7 +15,38 @@ async function fetchUsers() {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
-    u_store.users = data.data;
+
+    const users = data.data.reduce(
+      (
+        acc: Record<
+          number,
+          {
+            email: string;
+            first_name: string;
+            last_name: string;
+            avatar: string;
+          }
+        >,
+        user: {
+          id: number;
+          email: string;
+          first_name: string;
+          last_name: string;
+          avatar: string;
+        }
+      ) => {
+        acc[user.id] = {
+          email: user.email,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          avatar: user.avatar,
+        };
+        return acc;
+      },
+      {}
+    );
+
+    u_store.users = users;
     u_store.isDataComplete = true;
     console.log(u_store.users);
   } catch (error) {
