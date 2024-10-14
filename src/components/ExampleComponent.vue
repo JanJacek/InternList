@@ -7,15 +7,33 @@
     >
       <q-table
         :flat="true"
-        :rows="rows"
+        :rows="filteredRows"
         :columns="columns"
         row-key="name"
         style="width: 100%; height: 360px"
-        class="bg-grey-1"
+        class="bg-grey-1 no-border-rows"
         separator="none"
         hide-pagination
         v-model:pagination="pagination"
       >
+        <template v-slot:top>
+          <div class="q-my-md" style="width: 100%">
+            <q-input
+              v-model="u_store.search"
+              debounce="300"
+              outlined
+              placeholder="Search"
+              style="width: 100%; max-width: 400px"
+              dense
+              filled
+            >
+              <template v-slot:append>
+                <q-icon name="search" />
+              </template>
+            </q-input>
+          </div>
+        </template>
+
         <template v-slot:body="props">
           <q-tr
             :props="props"
@@ -55,7 +73,7 @@
 
 <script setup lang="ts">
 import { uiStore } from 'src/stores/uiStore';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 const u_store = uiStore();
 
 const columns: {
@@ -86,8 +104,11 @@ const columns: {
     label: 'Action',
     field: 'id',
     sortable: true,
+    align: 'right',
   },
 ];
+
+const filteredRows = computed(() => u_store.filteredTableRowData);
 
 const pagination = ref({
   page: 1,
@@ -98,5 +119,11 @@ const pagesNumber = Math.ceil(
   u_store.users.length / pagination.value.rowsPerPage
 );
 
-const rows = u_store.tableRowData;
+// const rows = u_store.tableRowData;
 </script>
+
+<style>
+.q-table__top {
+  padding: 0px !important;
+}
+</style>
