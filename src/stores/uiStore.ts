@@ -8,7 +8,6 @@ export const uiStore = defineStore('InternStore', {
     search: '',
   }),
   getters: {
-    // create data for table rows
     tableRowData(state) {
       return Object.entries(state.users).map(([id, user]) => ({
         id: Number(id),
@@ -19,7 +18,6 @@ export const uiStore = defineStore('InternStore', {
         avatar: user.avatar,
       }));
     },
-    // Dodaj getter do filtrowania danych tylko po full_name
     filteredTableRowData(state): FiltratedData[] {
       if (!state.search) {
         return this.tableRowData;
