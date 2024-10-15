@@ -11,14 +11,23 @@ const u_store = uiStore();
 
 async function fetchUsers() {
   try {
-    const response = await fetch('https://reqres.in/api/users?page=2');
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data = await response.json();
+    const responses = await Promise.all([
+      fetch('https://reqres.in/api/users?page=1'),
+      fetch('https://reqres.in/api/users?page=2'),
+    ]);
 
-    const users = data.data.reduce(
-      (acc: UsersAccumulator, user: NativeUserData) => {
+    const data = await Promise.all(
+      responses.map((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+    );
+
+    const users = data
+      .flatMap((page) => page.data)
+      .reduce((acc: UsersAccumulator, user: NativeUserData) => {
         acc[user.id] = {
           email: user.email,
           first_name: user.first_name,
@@ -26,13 +35,10 @@ async function fetchUsers() {
           avatar: user.avatar,
         };
         return acc;
-      },
-      {}
-    );
+      }, {});
 
     u_store.users = users;
     u_store.isDataComplete = true;
-    console.log(u_store.users);
   } catch (error) {
     console.error('There was a problem with the fetch operation:', error);
   }

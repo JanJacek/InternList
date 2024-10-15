@@ -79,7 +79,10 @@
                     flat
                     size="sm"
                     class="q-pa-none"
-                    @click="deleteUser(props.row.id)"
+                    @click="
+                      confirm.state = true;
+                      confirm.userId = props.row.id;
+                    "
                   />
                 </div>
               </template>
@@ -105,6 +108,36 @@
       gutter="3px"
       class="bg-grey-3 q-mt-md"
     />
+
+    <q-dialog v-model="confirm.state" backdrop-filter="none">
+      <q-card>
+        <q-card-section class="row items-center">
+          <p class="q-ma-sm q-mt-lg">
+            Are you sure you want to delete the user
+            <span class="text-bold">
+              {{
+                `${u_store.users[confirm.userId].first_name} ${
+                  u_store.users[confirm.userId].last_name
+                }`
+              }}</span
+            >
+            ?
+          </p>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" color="primary" v-close-popup no-caps />
+          <q-btn
+            flat
+            label="Remove"
+            color="primary"
+            v-close-popup
+            @click="deleteUser(confirm.userId)"
+            no-caps
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -115,7 +148,10 @@ import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 const u_store = uiStore();
 const router = useRouter();
-
+const confirm = ref({
+  state: false,
+  userId: 0,
+});
 const columns: UserTableColumn[] = [
   {
     name: 'avatar',
