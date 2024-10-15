@@ -178,7 +178,7 @@ input[type='file'] {
     max-width: 97% !important;
   }
   .responsive-card {
-    margin-bottom: 20px; /* Dodaj odstęp między kartami na mniejszych ekranach */
+    margin-bottom: 20px;
   }
 }
 </style>
